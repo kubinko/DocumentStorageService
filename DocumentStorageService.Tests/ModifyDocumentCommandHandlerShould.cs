@@ -13,7 +13,7 @@ namespace DocumentStorageService.Tests
             {
                 Id = "modify-document-id",
                 Tags = new List<string>(new[] { "TagA", "TagB", "TagC" }),
-                Data = new Random(Environment.TickCount).NextDouble()
+                Data = new Dictionary<string, string>() { ["SomeData"] = new Random(Environment.TickCount).NextDouble().ToString() }
             };
             var storageService = Substitute.For<IStorageService>();
             var handler = new ModifyDocumentCommandHandler(storageService);
@@ -22,7 +22,10 @@ namespace DocumentStorageService.Tests
             await handler.Handle(command, cancellationToken);
 
             await storageService.Received(1).ModifyDocument(
-                Arg.Is<Document>(d => d.Id == command.Id && d.Tags.SequenceEqual(command.Tags) && d.Data == command.Data),
+                Arg.Is<Document>(d =>
+                    d.Id == command.Id &&
+                    d.Tags.SequenceEqual(command.Tags) &&
+                    d.Data!.SequenceEqual(command.Data)),
                 Arg.Is(cancellationToken));
         }
     }

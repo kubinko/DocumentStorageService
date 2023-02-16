@@ -11,7 +11,7 @@ namespace DocumentStorageService.Tests
         public async Task ProperlyAddNewDocument()
         {
             var storageService = new InMemoryStorageService();
-            Document document = CreateDocument(DocumentId, new[] { "Tag1", "Tag3", "Tag42" }, Math.PI);
+            Document document = CreateDocument(DocumentId, new[] { "Tag1", "Tag3", "Tag42" }, CreateDocumentData1());
 
             await storageService.AddDocument(document);
 
@@ -22,8 +22,8 @@ namespace DocumentStorageService.Tests
         public async Task ProperlyModifyExistingDocument()
         {
             var storageService = new InMemoryStorageService();
-            Document document = CreateDocument(DocumentId, new[] { "Tag1", "Tag3", "Tag42" }, Math.PI);
-            Document modifiedDocument = CreateDocument(DocumentId, new[] { "AnotherTag" }, new DateTime(2023, 1, 6));
+            Document document = CreateDocument(DocumentId, new[] { "Tag1", "Tag3", "Tag42" }, CreateDocumentData1());
+            Document modifiedDocument = CreateDocument(DocumentId, new[] { "AnotherTag" }, CreateDocumentData2());
 
             await storageService.AddDocument(document);
             await storageService.ModifyDocument(modifiedDocument);
@@ -35,8 +35,8 @@ namespace DocumentStorageService.Tests
         public async Task NotOverrideExistingDocumentDuringAddOperation()
         {
             var storageService = new InMemoryStorageService();
-            Document document = CreateDocument(DocumentId, new[] { "Tag1", "Tag3", "Tag42" }, Math.PI);
-            Document duplicateDocument = CreateDocument(DocumentId, new[] { "AnotherTag" }, new DateTime(2023, 1, 6));
+            Document document = CreateDocument(DocumentId, new[] { "Tag1", "Tag3", "Tag42" }, CreateDocumentData1());
+            Document duplicateDocument = CreateDocument(DocumentId, new[] { "AnotherTag" }, CreateDocumentData2());
 
             await storageService.AddDocument(document);
             await storageService.AddDocument(duplicateDocument);
@@ -48,7 +48,7 @@ namespace DocumentStorageService.Tests
         public async Task NotThrowExceptionWhenAttemptingToModifyNonExistingDocument()
         {
             var storageService = new InMemoryStorageService();
-            Document document = CreateDocument(DocumentId, new[] { "Tag1", "Tag3", "Tag42" }, Math.PI);
+            Document document = CreateDocument(DocumentId, new[] { "Tag1", "Tag3", "Tag42" }, CreateDocumentData1());
 
             var action = async () => await storageService.ModifyDocument(document);
 
@@ -69,7 +69,7 @@ namespace DocumentStorageService.Tests
         private static Document CreateDocument(
             string documentId,
             IEnumerable<string> tags,
-            dynamic? data = null)
+            Dictionary<string, string>? data = null)
             => new()
             {
                 Id = documentId,
@@ -77,12 +77,24 @@ namespace DocumentStorageService.Tests
                 Data = data
             };
 
+        private static Dictionary<string, string> CreateDocumentData1()
+            => new()
+            {
+                ["PI"] = Math.PI.ToString()
+            };
+
+        private static Dictionary<string, string> CreateDocumentData2()
+            => new()
+            {
+                ["Date"] = new DateTime(2023, 1, 6).ToString()
+            };
+
         private static void AssertDocument(Document? resultDocument, Document expectedDocument)
         {
             resultDocument.Should().NotBeNull();
             resultDocument!.Id.Should().Be(expectedDocument.Id);
             resultDocument!.Tags.Should().BeEquivalentTo(expectedDocument.Tags);
-            resultDocument!.Data.Should().Be(expectedDocument.Data);
+            resultDocument!.Data.Should().BeEquivalentTo(expectedDocument.Data);
         }
     }
 }

@@ -20,6 +20,6 @@ namespace DocumentStorageService.Commands
         /// <summary>
         /// Document data.
         /// </summary>
-        public object? Data { get; set; }
+        public Dictionary<string, string>? Data { get; set; }
     }
 }
