@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentStorageService", "DocumentStorageService.csproj", "{846E1696-420E-4BE5-9C1E-482412409E5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocumentStorageService", "DocumentStorageService\DocumentStorageService.csproj", "{846E1696-420E-4BE5-9C1E-482412409E5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentStorageService.Tests", "..\DocumentStorageService.Tests\DocumentStorageService.Tests.csproj", "{920122BD-341C-4D7A-85C1-DA7B249D4BD0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DocumentStorageService.Tests", "DocumentStorageService.Tests\DocumentStorageService.Tests.csproj", "{920122BD-341C-4D7A-85C1-DA7B249D4BD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
