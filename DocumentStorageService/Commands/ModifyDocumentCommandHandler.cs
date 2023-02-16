@@ -18,7 +18,7 @@ namespace DocumentStorageService.Commands
         /// <param name="storageService">Service for storing documents.</param>
         public ModifyDocumentCommandHandler(IStorageService storageService)
         {
-            _storageService = storageService;
+            _storageService = storageService ?? throw new ArgumentNullException(nameof(storageService));
         }
 
         /// <inheritdoc/>

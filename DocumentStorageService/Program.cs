@@ -3,7 +3,10 @@ using DocumentStorageService.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Extensions.Caching.Memory;
 using System.Reflection;
+
+string cacheOptionSetting = "CacheSettings";
 
 var currentAssembly = Assembly.GetExecutingAssembly();
 
@@ -18,6 +21,11 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services
+    .AddOptions<MemoryCacheEntryOptions>(cacheOptionSetting);
+
+builder.Services
+    .AddMemoryCache()
+    .AddSingleton<ICacheService, CacheService>()
     .AddSingleton<IStorageService, InMemoryStorageService>()
     .AddMediatR(options => options.RegisterServicesFromAssembly(currentAssembly))
     .AddFluentValidationAutoValidation(options => options.DisableDataAnnotationsValidation = true)
