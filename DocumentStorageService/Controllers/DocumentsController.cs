@@ -4,6 +4,7 @@ using DocumentStorageService.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace DocumentStorageService.Controllers
 {
@@ -51,6 +52,7 @@ namespace DocumentStorageService.Controllers
         /// </summary>
         /// <param name="id">Document ID.</param>
         [HttpGet("{id}")]
+        [Produces(MediaTypeNames.Application.Json, MediaTypeNames.Application.Xml, "application/x-msgpack")]
         public async Task<IActionResult> GetDocument(string id, CancellationToken cancellationToken)
         {
             Document? document = await _mediator.Send(new GetDocumentQuery(id), cancellationToken);

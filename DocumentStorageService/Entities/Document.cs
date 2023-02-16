@@ -1,8 +1,11 @@
-﻿namespace DocumentStorageService.Entities
+﻿using MessagePack;
+
+namespace DocumentStorageService.Entities
 {
     /// <summary>
     /// Document.
     /// </summary>
+    [MessagePackObject(keyAsPropertyName: true)]
     public class Document
     {
         /// <summary>
@@ -17,7 +20,7 @@
 
         /// <summary>
         /// Document data.
-        /// </summary>
+        /// </summary>        
         public Dictionary<string, string>? Data { get; set; }
     }
 }
