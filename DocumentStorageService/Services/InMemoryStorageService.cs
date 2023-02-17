@@ -3,7 +3,7 @@
 namespace DocumentStorageService.Services
 {
     /// <summary>
-    /// Service for storing documents.
+    /// Service for storing documents in memory.
     /// </summary>
     public class InMemoryStorageService : IStorageService
     {
@@ -46,13 +46,9 @@ namespace DocumentStorageService.Services
         public Task<Document?> GetDocument(string id, CancellationToken cancellationToken = default)
         {
             Document? document = _cache.TryGetFromCache(id);
-            if (document == null)
+            if (document == null && _documents.TryGetValue(id, out document))
             {
-                _documents.TryGetValue(id, out document);
-                if (document != null)
-                {
-                    _cache.StoreToCache(document);
-                }
+                _cache.StoreToCache(document);
             }
 
             return Task.FromResult(document);

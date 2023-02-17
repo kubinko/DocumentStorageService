@@ -81,7 +81,8 @@ namespace DocumentStorageService.Tests
             cache.Received(1).StoreToCache(Arg.Is<Document>(d =>
                 d.Id == document.Id &&
                 d.Tags.SequenceEqual(document.Tags) &&
-                d.Data!.SequenceEqual(document.Data!)));
+                d.Data != null &&
+                d.Data.SequenceEqual(document.Data!)));
         }
 
         [Fact]

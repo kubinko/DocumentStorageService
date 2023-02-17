@@ -11,6 +11,9 @@ namespace DocumentStorageService.CustomFormatters
     {
         private const string MessagePackMimeType = "application/x-msgpack";
 
+        /// <summary>
+        /// Ctor.
+        /// </summary>
         public MessagePackFormatter()
         {
             SupportedMediaTypes.Add(MessagePackMimeType);

@@ -17,7 +17,6 @@ namespace DocumentStorageService.Services
         /// </summary>
         /// <param name="cache">In-memory cache.</param>
         /// <param name="cachingOptions">Caching options/</param>
-        /// <exception cref="ArgumentNullException"></exception>
         public CacheService(IMemoryCache cache, IOptions<MemoryCacheEntryOptions> cachingOptions)
         {
             _cache = cache ?? throw new ArgumentNullException(nameof(cache));

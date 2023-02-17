@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Caching.Memory;
 using System.Reflection;
 
-string cacheOptionSetting = "CacheSettings";
+string cacheOptionsSetting = "CacheSettings";
 
 var currentAssembly = Assembly.GetExecutingAssembly();
 
@@ -21,7 +21,7 @@ builder.Services.AddControllers(options =>
 });
 
 builder.Services
-    .AddOptions<MemoryCacheEntryOptions>(cacheOptionSetting);
+    .AddOptions<MemoryCacheEntryOptions>(cacheOptionsSetting);
 
 builder.Services
     .AddMemoryCache()

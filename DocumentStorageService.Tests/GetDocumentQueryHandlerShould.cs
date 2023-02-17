@@ -7,7 +7,7 @@ namespace DocumentStorageService.Tests
     public class GetDocumentQueryHandlerShould
     {
         [Fact]
-        public async Task AttemtptToGetDocumentSpecifiedByQuery()
+        public async Task AttemptToGetDocumentSpecifiedByQuery()
         {
             var query = new GetDocumentQuery("get-document-id");
             var storageService = Substitute.For<IStorageService>();
